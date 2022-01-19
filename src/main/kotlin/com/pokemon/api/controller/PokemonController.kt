@@ -25,18 +25,36 @@ class PokemonController(
         return repository.findAll()
     }
 
+    @GetMapping("/pokemon/{id}")
+    fun buscaPorId(@PathVariable id : Long) : Optional<PokemonModel> {
+        return repository.findById(id)
+
+    }
+
+    @GetMapping("/pokemon/{nome}")
+    fun buscarPorNome(@PathVariable nome : String): Optional<PokemonModel> {
+        return repository.findByNome(nome)
+    }
+
     @PostMapping("/pokemon")
-    fun pokemonSave(@RequestBody pokemon : PokemonModel): Optional<PokemonModel> {
-        repository.save(pokemon)
-        return repository.findByNome(pokemon.nome)
+    fun pokemonSave(@RequestBody pokemon : PokemonModel): String {
+
+        val teste = repository.findByNome(pokemon.nome)
+
+        if (teste.isEmpty){
+            repository.save(pokemon)
+            return "Pokemon salvo com sucesso!"
+        }
+
+        return "Pokemon já existe!"
+
     }
 
     @PutMapping("/pokemon")
     fun pokemonEdit(@RequestBody pokemon: PokemonModel) : String {
-        var idPokemon : Long = pokemon.id
-        if(repository.existsById(idPokemon)) {
+        if(repository.existsById(pokemon.id)) {
             repository.save(pokemon)
-            return "Pokemon Atualizado"
+            return "Pokemon atualizado"
         }
 
         return "Pokemon não encontrado"
@@ -44,9 +62,7 @@ class PokemonController(
 
     @DeleteMapping("/pokemon/{id}")
     fun pokemonDelete(@PathVariable id : Long) : String {
-
-        var idPokemon : Long = id
-        if(repository.existsById(idPokemon)) {
+        if(repository.existsById(id)) {
             repository.deleteById(id)
             return "Pokemon deletado"
         }
