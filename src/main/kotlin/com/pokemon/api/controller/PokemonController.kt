@@ -38,15 +38,8 @@ class PokemonController(
 
     @PostMapping("/pokemon")
     fun pokemonSave(@RequestBody pokemon : PokemonModel): String {
-
-        val teste = repository.findByNome(pokemon.nome)
-
-        if (teste.isEmpty){
-            repository.save(pokemon)
-            return "Pokemon salvo com sucesso!"
-        }
-
-        return "Pokemon já existe!"
+        repository.save(pokemon)
+        return "Pokemon salvo com sucesso!"
 
     }
 
