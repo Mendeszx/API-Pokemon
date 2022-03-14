@@ -15,6 +15,11 @@ class ApiConfiguration {
             registry.addMapping("/**")
                 .allowedOrigins("https://pokedexz.herokuapp.com/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
+
+            registry.addMapping("/**")
+                .allowedOrigins(".allowedOrigins(\"*\")")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
+
         }
     }
 }
