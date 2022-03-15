@@ -13,7 +13,7 @@ class ApiConfiguration {
     class CorsConfiguration : WebMvcConfigurer {
         override fun addCorsMappings(registry: CorsRegistry) {
             registry.addMapping("/**")
-                .allowedOrigins("https://pokedexz.herokuapp.com/")
+                .allowedOrigins("https://pokedexz-dev.herokuapp.com/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
 
             registry.addMapping("/**")
