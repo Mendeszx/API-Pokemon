@@ -3,7 +3,10 @@ package com.pokemon.api.controller
 import com.pokemon.api.model.PokemonModel
 import com.pokemon.api.repository.PokemonRepository
 import com.pokemon.api.service.PokemonService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpEntity
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -21,8 +24,12 @@ class PokemonController(
     }
 
     @GetMapping("/pokemon")
-    fun pokemonList(): List<PokemonModel> {
-        return repository.findAll()
+    fun pokemonList(paginacao: Pageable? ): Page<PokemonModel>? {
+        if (paginacao == null){
+            repository.findAll()
+        }
+        return paginacao?.let { repository.findAll(it) }
+
     }
 
     @GetMapping("/pokemon/{id}")
