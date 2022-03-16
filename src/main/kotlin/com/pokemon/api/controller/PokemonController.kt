@@ -5,6 +5,7 @@ import com.pokemon.api.repository.PokemonRepository
 import com.pokemon.api.service.PokemonService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -24,7 +25,7 @@ class PokemonController(
     }
 
     @GetMapping("/pokemon")
-    fun pokemonList(paginacao: Pageable? ): Page<PokemonModel>? {
+    fun pokemonList(@PageableDefault (sort = ["id"]) paginacao: Pageable? ): Page<PokemonModel>? {
         if (paginacao == null){
             repository.findAll()
         }

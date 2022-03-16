@@ -5,9 +5,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-
-
-
 class ApiConfiguration {
     @Configuration
     class CorsConfiguration : WebMvcConfigurer {
