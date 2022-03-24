@@ -26,9 +26,6 @@ class PokemonController(
 
     @GetMapping("/pokemon")
     fun pokemonList(@PageableDefault (sort = ["id"]) paginacao: Pageable? ): Page<PokemonModel>? {
-        if (paginacao == null){
-            repository.findAll()
-        }
         return paginacao?.let { repository.findAll(it) }
 
     }
