@@ -10,9 +10,6 @@ class ApiConfiguration {
     class CorsConfiguration : WebMvcConfigurer {
         override fun addCorsMappings(registry: CorsRegistry) {
             registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*")
-
         }
     }
 }
