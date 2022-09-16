@@ -1,7 +1,7 @@
 # API-Pokemon
 >Status: Desenvolvimento
 
-Olá, Este repositório foi um estudo que fiz em Kotlin para aprender a linguagem Kotlin e utilizar ela em um exemplo pratico, fiz uma API a partir do modelo REST com Spring Boot.
+Olá, Este repositório foi um estudo que fiz em Kotlin para aprender a linguagem e utilizar ela em um exemplo pratico, fiz uma API a partir do modelo REST com Spring Boot.
 
 <h4>Tecnologias utilizadas</h4>
 
