@@ -1,5 +1,6 @@
 package com.pokemon.api.controller
 
+import com.pokemon.api.model.BuscaPokemonModel
 import com.pokemon.api.model.PokemonModel
 import com.pokemon.api.repository.PokemonRepository
 import com.pokemon.api.service.PokemonService
@@ -21,31 +22,36 @@ class PokemonController(
     @GetMapping("/pokeapi")
     fun createDataBase(): HttpEntity<*> {
         return service.consultarPokeAPI()
-
     }
 
     @GetMapping("/pokemon")
     fun pokemonList(@PageableDefault (sort = ["id"]) paginacao: Pageable? ): Page<PokemonModel>? {
         return paginacao?.let { repository.findAll(it) }
-
     }
 
-    @GetMapping("/pokemon/{id}")
-    fun buscaPorId(@PathVariable id : Long) : Optional<PokemonModel> {
-        return repository.findById(id)
+//    @GetMapping("/pokemon/{id}")
+//    fun buscaPorId(@PathVariable id : Long) : Optional<PokemonModel> {
+//        return repository.findById(id)
+//    }
 
-    }
+//    @GetMapping("/pokemon/{nome}")
+//    fun buscarPorNome(@PathVariable nome : String): Optional<PokemonModel> {
+//        return repository.findByNome(nome)
+//    }
 
-    @GetMapping("/pokemon/{nome}")
-    fun buscarPorNome(@PathVariable nome : String): Optional<PokemonModel> {
-        return repository.findByNome(nome)
+    @GetMapping("/pokemon/buscar")
+    fun buscarPokemon(@RequestBody pokemon: BuscaPokemonModel): Optional<PokemonModel>{
+        return if(pokemon.nomePokemon.isEmpty()){
+            repository.findById(pokemon.idPokemon)
+        }else{
+            repository.findByNome(pokemon.nomePokemon)
+        }
     }
 
     @PostMapping("/pokemon")
     fun pokemonSave(@RequestBody pokemon : PokemonModel): String {
         repository.save(pokemon)
         return "Pokemon salvo com sucesso!"
-
     }
 
     @PutMapping("/pokemon")
@@ -54,7 +60,6 @@ class PokemonController(
             repository.save(pokemon)
             return "Pokemon atualizado"
         }
-
         return "Pokemon não encontrado"
     }
 
@@ -64,7 +69,6 @@ class PokemonController(
             repository.deleteById(id)
             return "Pokemon deletado"
         }
-
         return "Pokemon não encontrado"
     }
 }
