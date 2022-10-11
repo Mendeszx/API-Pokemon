@@ -41,7 +41,7 @@ class PokemonController(
 //        return repository.findByNome(nome)
 //    }
 
-    @GetMapping("/pokemon/buscar")
+    @PostMapping("/pokemon/buscar")
     fun buscarPokemon(@RequestBody pokemon: BuscaPokemonModel): Optional<PokemonModel>{
         return if(pokemon.nomePokemon.isEmpty()){
             repository.findById(pokemon.idPokemon)
