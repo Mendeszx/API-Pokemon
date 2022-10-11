@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -19,14 +20,15 @@ class PokemonController(
     private val repository: PokemonRepository
 ) {
 
-    @GetMapping("/pokeapi")
-    fun createDataBase(): HttpEntity<*> {
-        return service.consultarPokeAPI()
+    @GetMapping("/up")
+    fun apiUp(): String {
+        return "up"
     }
 
     @GetMapping("/pokemon")
-    fun pokemonList(@PageableDefault (sort = ["id"]) paginacao: Pageable? ): Page<PokemonModel>? {
-        return paginacao?.let { repository.findAll(it) }
+    fun pokemonList(@PageableDefault (sort = ["id"]) paginacao: Pageable? ): ResponseEntity<*>? {
+        val bodyPokemonList = paginacao?.let { repository.findAll(it) }
+        return ResponseEntity.status(200).body(bodyPokemonList)
     }
 
 //    @GetMapping("/pokemon/{id}")
