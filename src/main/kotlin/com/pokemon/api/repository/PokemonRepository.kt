@@ -6,4 +6,5 @@ import java.util.*
 
 interface PokemonRepository : JpaRepository<PokemonModel, Long> {
     fun findByNome(nome: String): Optional<PokemonModel>
+    //fun findById(id: Long): Optional<PokemonModel>
 }

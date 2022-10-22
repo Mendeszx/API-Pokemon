@@ -16,6 +16,7 @@ data class PokemonModel(
     var tipo: String = "",
     var tipoCard: String = "",
     var imagem: String = "",
-    var imagemMiniatura: String = ""
+    var imagemMiniatura: String = "",
+    var biografia: String = ""
 
     )

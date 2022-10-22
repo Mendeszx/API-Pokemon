@@ -27,7 +27,9 @@ class PokemonController(
 
     @GetMapping("/pokemon")
     fun pokemonList(@PageableDefault (sort = ["id"]) paginacao: Pageable? ): ResponseEntity<*>? {
-        val bodyPokemonList = paginacao?.let { repository.findAll(it) }
+        val bodyPokemonList = paginacao?.let {
+            repository.findAll(it)
+        }
         return ResponseEntity.status(200).body(bodyPokemonList)
     }
 
@@ -51,9 +53,8 @@ class PokemonController(
     }
 
     @PostMapping("/pokemon")
-    fun pokemonSave(@RequestBody pokemon : PokemonModel): String {
-        repository.save(pokemon)
-        return "Pokemon salvo com sucesso!"
+    fun pokemonSave(@RequestBody pokemon : PokemonModel): ResponseEntity<*>? {
+        return service.consultarSePokemonExiste(pokemon)
     }
 
     @PutMapping("/pokemon")
